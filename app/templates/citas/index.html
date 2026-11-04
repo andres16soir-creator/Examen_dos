@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Citas{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3">
+    <h2>Citas</h2>
+    <a href="{{ url_for('bp_citas.crear') }}" class="btn btn-success">+ Nueva Cita</a>
+</div>
+
+<table class="table table-striped bg-white">
+    <thead class="table-primary">
+        <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Médico</th>
+            <th>Paciente</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for c in citas %}
+        <tr>
+            <td>{{ c.id }}</td>
+            <td>{{ c.fecha.strftime("%d/%m/%Y") }}</td>
+            <td>{{ c.hora.strftime("%H:%M") }}</td>
+            <td>{{ c.medico.nombre }}</td>
+            <td>{{ c.paciente.nombre }}</td>
+            <td>
+                <a href="{{ url_for('bp_citas.editar', id=c.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                <form method="POST" action="{{ url_for('bp_citas.eliminar', id=c.id) }}" class="d-inline">
+                    <button class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar?')">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" class="text-center">No hay citas registradas.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

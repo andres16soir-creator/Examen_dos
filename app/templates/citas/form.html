@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}{{ "Editar" if cita else "Nueva" }} Cita{% endblock %}
+{% block content %}
+<h2>{{ "Editar" if cita else "Nueva" }} Cita</h2>
+<form method="POST" class="bg-white p-4 border rounded" style="max-width: 600px;">
+    <div class="mb-3">
+        <label>Fecha</label>
+        <input type="date" name="fecha" class="form-control" required value="{{ cita.fecha.strftime('%Y-%m-%d') if cita else '' }}">
+    </div>
+    <div class="mb-3">
+        <label>Hora</label>
+        <input type="time" name="hora" class="form-control" required value="{{ cita.hora.strftime('%H:%M') if cita else '' }}">
+    </div>
+    <div class="mb-3">
+        <label>Médico</label>
+        <select name="medico_id" class="form-select" required>
+            <option value="">Seleccione...</option>
+            {% for m in medicos %}
+            <option value="{{ m.id }}" {% if cita and cita.medico_id == m.id %}selected{% endif %}>{{ m.nombre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Paciente</label>
+        <select name="paciente_id" class="form-select" required>
+            <option value="">Seleccione...</option>
+            {% for p in pacientes %}
+            <option value="{{ p.id }}" {% if cita and cita.paciente_id == p.id %}selected{% endif %}>{{ p.nombre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button class="btn btn-primary">Guardar</button>
+    <a href="{{ url_for('bp_citas.index') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

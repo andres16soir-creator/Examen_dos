@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ "Editar" if medico else "Nuevo" }} Médico{% endblock %}
+{% block content %}
+<h2>{{ "Editar" if medico else "Nuevo" }} Médico</h2>
+<form method="POST" class="bg-white p-4 border rounded" style="max-width: 600px;">
+    <div class="mb-3">
+        <label>Nombre</label>
+        <input type="text" name="nombre" class="form-control" required value="{{ medico.nombre if medico else '' }}">
+    </div>
+    <div class="mb-3">
+        <label>Especialidad</label>
+        <input type="text" name="especialidad" class="form-control" required value="{{ medico.especialidad if medico else '' }}">
+    </div>
+    <button class="btn btn-primary">Guardar</button>
+    <a href="{{ url_for('bp_medicos.index') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

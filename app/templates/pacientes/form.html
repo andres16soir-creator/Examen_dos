@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ "Editar" if paciente else "Nuevo" }} Paciente{% endblock %}
+{% block content %}
+<h2>{{ "Editar" if paciente else "Nuevo" }} Paciente</h2>
+<form method="POST" class="bg-white p-4 border rounded" style="max-width: 600px;">
+    <div class="mb-3">
+        <label>Nombre</label>
+        <input type="text" name="nombre" class="form-control" required value="{{ paciente.nombre if paciente else '' }}">
+    </div>
+    <div class="mb-3">
+        <label>Teléfono</label>
+        <input type="text" name="telefono" class="form-control" required value="{{ paciente.telefono if paciente else '' }}">
+    </div>
+    <button class="btn btn-primary">Guardar</button>
+    <a href="{{ url_for('bp_pacientes.index') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

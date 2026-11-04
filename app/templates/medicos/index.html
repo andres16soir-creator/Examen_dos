@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Médicos{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between mb-3">
+    <h2>Médicos</h2>
+    <a href="{{ url_for('bp_medicos.crear') }}" class="btn btn-success">+ Nuevo Médico</a>
+</div>
+
+<table class="table table-striped bg-white">
+    <thead class="table-primary">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Especialidad</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for m in medicos %}
+        <tr>
+            <td>{{ m.id }}</td>
+            <td>{{ m.nombre }}</td>
+            <td>{{ m.especialidad }}</td>
+            <td>
+                <a href="{{ url_for('bp_medicos.editar', id=m.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                <form method="POST" action="{{ url_for('bp_medicos.eliminar', id=m.id) }}" class="d-inline">
+                    <button class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar?')">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4" class="text-center">No hay médicos registrados.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
